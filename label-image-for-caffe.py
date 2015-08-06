@@ -17,7 +17,7 @@ imagesDir = args["imagesSet"]
 
 images_names = os.listdir(imagesDir)
 
-f = open("imageNamesList.txt", "w")
+f = open(''+str(imagesDir)+'.txt', "w")
 for ind, str_each_file in enumerate(images_names):
     image_full_path = ' '.join([str_each_file, imagesDir])
     print 'wirte %s' % (image_full_path)
