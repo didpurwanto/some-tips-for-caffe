@@ -1,0 +1,1 @@
+.\bin\caffe.exe train --solver=examples/cvprw15-cifar10/KevinNet_CIFAR10_32_solver.prototxt -snapshot=examples\cvprw15-cifar10\KevinNet_CIFAR10_32_iter_10000.solverstate
