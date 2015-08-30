@@ -1,0 +1,3 @@
+Open freopen.txt successfully!
+[libprotobuf ERROR ..\src\google\protobuf\text_format.cc:245] Error parsing text-format caffe.NetParameter: 205:2: Expected identifier.
+*** Check failure stack trace: ***

@@ -1,0 +1,10 @@
+Open freopen.txt successfully!
+[libprotobuf ERROR ..\src\google\protobuf\text_format.cc:245] Error parsing text-format caffe.NetParameter: 6:29: Invalid escape sequence in string literal.
+[libprotobuf ERROR ..\src\google\protobuf\text_format.cc:245] Error parsing text-format caffe.NetParameter: 6:43: Invalid escape sequence in string literal.
+[libprotobuf ERROR ..\src\google\protobuf\text_format.cc:245] Error parsing text-format caffe.NetParameter: 6:52: Invalid escape sequence in string literal.
+[libprotobuf ERROR ..\src\google\protobuf\text_format.cc:245] Error parsing text-format caffe.NetParameter: 6:68: Invalid escape sequence in string literal.
+[libprotobuf ERROR ..\src\google\protobuf\text_format.cc:245] Error parsing text-format caffe.NetParameter: 7:31: Invalid escape sequence in string literal.
+[libprotobuf ERROR ..\src\google\protobuf\text_format.cc:245] Error parsing text-format caffe.NetParameter: 7:45: Invalid escape sequence in string literal.
+[libprotobuf ERROR ..\src\google\protobuf\text_format.cc:245] Error parsing text-format caffe.NetParameter: 7:54: Invalid escape sequence in string literal.
+[libprotobuf ERROR ..\src\google\protobuf\text_format.cc:245] Error parsing text-format caffe.NetParameter: 7:70: Invalid escape sequence in string literal.
+*** Check failure stack trace: ***

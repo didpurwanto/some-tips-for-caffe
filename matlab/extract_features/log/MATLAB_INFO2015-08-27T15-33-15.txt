@@ -1,0 +1,2425 @@
+Open freopen.txt successfully!
+I0827 15:33:37.346271 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 1
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "norm2"
+  top: "conv3"
+  convolution_param {
+    num_output: 64
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+I0827 15:33:37.346271 11148 net.cpp:382] Input 0 -> data
+I0827 15:33:37.346271 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:33:37.346271 11148 net.cpp:90] Creating Layer conv1
+I0827 15:33:37.346271 11148 net.cpp:422] conv1 <- data
+I0827 15:33:37.346271 11148 net.cpp:380] conv1 -> conv1
+I0827 15:33:37.346271 11148 net.cpp:120] Setting up conv1
+I0827 15:33:37.346271 11148 net.cpp:127] Top shape: 1 32 32 32 (32768)
+I0827 15:33:37.346271 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:33:37.346271 11148 net.cpp:90] Creating Layer pool1
+I0827 15:33:37.346271 11148 net.cpp:422] pool1 <- conv1
+I0827 15:33:37.346271 11148 net.cpp:380] pool1 -> pool1
+I0827 15:33:37.346271 11148 net.cpp:120] Setting up pool1
+I0827 15:33:37.346271 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:33:37.346271 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:33:37.346271 11148 net.cpp:90] Creating Layer relu1
+I0827 15:33:37.346271 11148 net.cpp:422] relu1 <- pool1
+I0827 15:33:37.346271 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:33:37.346271 11148 net.cpp:120] Setting up relu1
+I0827 15:33:37.346271 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:33:37.346271 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:33:37.346271 11148 net.cpp:90] Creating Layer norm1
+I0827 15:33:37.346271 11148 net.cpp:422] norm1 <- pool1
+I0827 15:33:37.346271 11148 net.cpp:380] norm1 -> norm1
+I0827 15:33:37.346271 11148 net.cpp:120] Setting up norm1
+I0827 15:33:37.346271 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:33:37.346271 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:33:37.346271 11148 net.cpp:90] Creating Layer conv2
+I0827 15:33:37.346271 11148 net.cpp:422] conv2 <- norm1
+I0827 15:33:37.346271 11148 net.cpp:380] conv2 -> conv2
+I0827 15:33:37.346271 11148 net.cpp:120] Setting up conv2
+I0827 15:33:37.346271 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:33:37.347271 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:33:37.347271 11148 net.cpp:90] Creating Layer relu2
+I0827 15:33:37.347271 11148 net.cpp:422] relu2 <- conv2
+I0827 15:33:37.347271 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:33:37.347271 11148 net.cpp:120] Setting up relu2
+I0827 15:33:37.347271 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:33:37.347271 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:33:37.347271 11148 net.cpp:90] Creating Layer pool2
+I0827 15:33:37.347271 11148 net.cpp:422] pool2 <- conv2
+I0827 15:33:37.347271 11148 net.cpp:380] pool2 -> pool2
+I0827 15:33:37.347271 11148 net.cpp:120] Setting up pool2
+I0827 15:33:37.347271 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:33:37.347271 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:33:37.347271 11148 net.cpp:90] Creating Layer norm2
+I0827 15:33:37.347271 11148 net.cpp:422] norm2 <- pool2
+I0827 15:33:37.347271 11148 net.cpp:380] norm2 -> norm2
+I0827 15:33:37.347271 11148 net.cpp:120] Setting up norm2
+I0827 15:33:37.347271 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:33:37.347271 11148 layer_factory.hpp:74] Creating layer conv3
+I0827 15:33:37.347271 11148 net.cpp:90] Creating Layer conv3
+I0827 15:33:37.347271 11148 net.cpp:422] conv3 <- norm2
+I0827 15:33:37.347271 11148 net.cpp:380] conv3 -> conv3
+I0827 15:33:37.347271 11148 net.cpp:120] Setting up conv3
+I0827 15:33:37.347271 11148 net.cpp:127] Top shape: 1 64 8 8 (4096)
+I0827 15:33:37.347271 11148 net.cpp:194] conv3 does not need backward computation.
+I0827 15:33:37.347271 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:33:37.347271 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:33:37.347271 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:33:37.347271 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:33:37.347271 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:33:37.347271 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:33:37.347271 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:33:37.347271 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:33:37.347271 11148 net.cpp:235] This network produces output conv3
+I0827 15:33:37.347271 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:33:37.347271 11148 net.cpp:247] Network initialization done.
+I0827 15:33:37.347271 11148 net.cpp:248] Memory required for data: 327680
+I0827 15:33:51.906129 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 1
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "norm2"
+  top: "conv3"
+  convolution_param {
+    num_output: 64
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+I0827 15:33:51.906129 11148 net.cpp:382] Input 0 -> data
+I0827 15:33:51.906129 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:33:51.906129 11148 net.cpp:90] Creating Layer conv1
+I0827 15:33:51.906129 11148 net.cpp:422] conv1 <- data
+I0827 15:33:51.906129 11148 net.cpp:380] conv1 -> conv1
+I0827 15:33:51.906129 11148 net.cpp:120] Setting up conv1
+I0827 15:33:51.906129 11148 net.cpp:127] Top shape: 1 32 32 32 (32768)
+I0827 15:33:51.906129 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:33:51.906129 11148 net.cpp:90] Creating Layer pool1
+I0827 15:33:51.906129 11148 net.cpp:422] pool1 <- conv1
+I0827 15:33:51.906129 11148 net.cpp:380] pool1 -> pool1
+I0827 15:33:51.906129 11148 net.cpp:120] Setting up pool1
+I0827 15:33:51.906129 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:33:51.906129 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:33:51.906129 11148 net.cpp:90] Creating Layer relu1
+I0827 15:33:51.906129 11148 net.cpp:422] relu1 <- pool1
+I0827 15:33:51.906129 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:33:51.906129 11148 net.cpp:120] Setting up relu1
+I0827 15:33:51.906129 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:33:51.906129 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:33:51.906129 11148 net.cpp:90] Creating Layer norm1
+I0827 15:33:51.906129 11148 net.cpp:422] norm1 <- pool1
+I0827 15:33:51.906129 11148 net.cpp:380] norm1 -> norm1
+I0827 15:33:51.906129 11148 net.cpp:120] Setting up norm1
+I0827 15:33:51.907131 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:33:51.907131 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:33:51.907131 11148 net.cpp:90] Creating Layer conv2
+I0827 15:33:51.907131 11148 net.cpp:422] conv2 <- norm1
+I0827 15:33:51.907131 11148 net.cpp:380] conv2 -> conv2
+I0827 15:33:51.907131 11148 net.cpp:120] Setting up conv2
+I0827 15:33:51.907131 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:33:51.907131 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:33:51.907131 11148 net.cpp:90] Creating Layer relu2
+I0827 15:33:51.907131 11148 net.cpp:422] relu2 <- conv2
+I0827 15:33:51.907131 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:33:51.907131 11148 net.cpp:120] Setting up relu2
+I0827 15:33:51.907131 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:33:51.907131 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:33:51.907131 11148 net.cpp:90] Creating Layer pool2
+I0827 15:33:51.907131 11148 net.cpp:422] pool2 <- conv2
+I0827 15:33:51.907131 11148 net.cpp:380] pool2 -> pool2
+I0827 15:33:51.907131 11148 net.cpp:120] Setting up pool2
+I0827 15:33:51.907131 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:33:51.907131 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:33:51.907131 11148 net.cpp:90] Creating Layer norm2
+I0827 15:33:51.907131 11148 net.cpp:422] norm2 <- pool2
+I0827 15:33:51.907131 11148 net.cpp:380] norm2 -> norm2
+I0827 15:33:51.907131 11148 net.cpp:120] Setting up norm2
+I0827 15:33:51.907131 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:33:51.907131 11148 layer_factory.hpp:74] Creating layer conv3
+I0827 15:33:51.907131 11148 net.cpp:90] Creating Layer conv3
+I0827 15:33:51.907131 11148 net.cpp:422] conv3 <- norm2
+I0827 15:33:51.907131 11148 net.cpp:380] conv3 -> conv3
+I0827 15:33:51.907131 11148 net.cpp:120] Setting up conv3
+I0827 15:33:51.907131 11148 net.cpp:127] Top shape: 1 64 8 8 (4096)
+I0827 15:33:51.907131 11148 net.cpp:194] conv3 does not need backward computation.
+I0827 15:33:51.907131 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:33:51.907131 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:33:51.907131 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:33:51.907131 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:33:51.907131 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:33:51.907131 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:33:51.907131 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:33:51.907131 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:33:51.907131 11148 net.cpp:235] This network produces output conv3
+I0827 15:33:51.907131 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:33:51.907131 11148 net.cpp:247] Network initialization done.
+I0827 15:33:51.907131 11148 net.cpp:248] Memory required for data: 327680
+I0827 15:34:04.297155 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 1
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "norm2"
+  top: "conv3"
+  convolution_param {
+    num_output: 64
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+I0827 15:34:04.297155 11148 net.cpp:382] Input 0 -> data
+I0827 15:34:04.297155 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:34:04.297155 11148 net.cpp:90] Creating Layer conv1
+I0827 15:34:04.297155 11148 net.cpp:422] conv1 <- data
+I0827 15:34:04.297155 11148 net.cpp:380] conv1 -> conv1
+I0827 15:34:04.297155 11148 net.cpp:120] Setting up conv1
+I0827 15:34:04.297155 11148 net.cpp:127] Top shape: 1 32 32 32 (32768)
+I0827 15:34:04.297155 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:34:04.297155 11148 net.cpp:90] Creating Layer pool1
+I0827 15:34:04.297155 11148 net.cpp:422] pool1 <- conv1
+I0827 15:34:04.297155 11148 net.cpp:380] pool1 -> pool1
+I0827 15:34:04.297155 11148 net.cpp:120] Setting up pool1
+I0827 15:34:04.297155 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:04.297155 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:34:04.297155 11148 net.cpp:90] Creating Layer relu1
+I0827 15:34:04.297155 11148 net.cpp:422] relu1 <- pool1
+I0827 15:34:04.297155 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:34:04.297155 11148 net.cpp:120] Setting up relu1
+I0827 15:34:04.297155 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:04.297155 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:34:04.297155 11148 net.cpp:90] Creating Layer norm1
+I0827 15:34:04.297155 11148 net.cpp:422] norm1 <- pool1
+I0827 15:34:04.297155 11148 net.cpp:380] norm1 -> norm1
+I0827 15:34:04.297155 11148 net.cpp:120] Setting up norm1
+I0827 15:34:04.297155 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:04.297155 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:34:04.297155 11148 net.cpp:90] Creating Layer conv2
+I0827 15:34:04.297155 11148 net.cpp:422] conv2 <- norm1
+I0827 15:34:04.297155 11148 net.cpp:380] conv2 -> conv2
+I0827 15:34:04.297155 11148 net.cpp:120] Setting up conv2
+I0827 15:34:04.297155 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:04.297155 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:34:04.297155 11148 net.cpp:90] Creating Layer relu2
+I0827 15:34:04.297155 11148 net.cpp:422] relu2 <- conv2
+I0827 15:34:04.297155 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:34:04.297155 11148 net.cpp:120] Setting up relu2
+I0827 15:34:04.297155 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:04.297155 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:34:04.297155 11148 net.cpp:90] Creating Layer pool2
+I0827 15:34:04.297155 11148 net.cpp:422] pool2 <- conv2
+I0827 15:34:04.297155 11148 net.cpp:380] pool2 -> pool2
+I0827 15:34:04.297155 11148 net.cpp:120] Setting up pool2
+I0827 15:34:04.298154 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:34:04.298154 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:34:04.298154 11148 net.cpp:90] Creating Layer norm2
+I0827 15:34:04.298154 11148 net.cpp:422] norm2 <- pool2
+I0827 15:34:04.298154 11148 net.cpp:380] norm2 -> norm2
+I0827 15:34:04.298154 11148 net.cpp:120] Setting up norm2
+I0827 15:34:04.298154 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:34:04.298154 11148 layer_factory.hpp:74] Creating layer conv3
+I0827 15:34:04.298154 11148 net.cpp:90] Creating Layer conv3
+I0827 15:34:04.298154 11148 net.cpp:422] conv3 <- norm2
+I0827 15:34:04.298154 11148 net.cpp:380] conv3 -> conv3
+I0827 15:34:04.298154 11148 net.cpp:120] Setting up conv3
+I0827 15:34:04.298154 11148 net.cpp:127] Top shape: 1 64 8 8 (4096)
+I0827 15:34:04.298154 11148 net.cpp:194] conv3 does not need backward computation.
+I0827 15:34:04.298154 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:34:04.298154 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:34:04.298154 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:34:04.298154 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:34:04.298154 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:34:04.298154 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:34:04.298154 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:34:04.298154 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:34:04.298154 11148 net.cpp:235] This network produces output conv3
+I0827 15:34:04.298154 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:34:04.298154 11148 net.cpp:247] Network initialization done.
+I0827 15:34:04.298154 11148 net.cpp:248] Memory required for data: 327680
+I0827 15:34:24.740664 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 1
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "norm2"
+  top: "conv3"
+  convolution_param {
+    num_output: 64
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+I0827 15:34:24.740664 11148 net.cpp:382] Input 0 -> data
+I0827 15:34:24.740664 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:34:24.740664 11148 net.cpp:90] Creating Layer conv1
+I0827 15:34:24.740664 11148 net.cpp:422] conv1 <- data
+I0827 15:34:24.740664 11148 net.cpp:380] conv1 -> conv1
+I0827 15:34:24.740664 11148 net.cpp:120] Setting up conv1
+I0827 15:34:24.740664 11148 net.cpp:127] Top shape: 1 32 32 32 (32768)
+I0827 15:34:24.740664 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:34:24.740664 11148 net.cpp:90] Creating Layer pool1
+I0827 15:34:24.740664 11148 net.cpp:422] pool1 <- conv1
+I0827 15:34:24.740664 11148 net.cpp:380] pool1 -> pool1
+I0827 15:34:24.740664 11148 net.cpp:120] Setting up pool1
+I0827 15:34:24.740664 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:24.740664 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:34:24.740664 11148 net.cpp:90] Creating Layer relu1
+I0827 15:34:24.740664 11148 net.cpp:422] relu1 <- pool1
+I0827 15:34:24.740664 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:34:24.740664 11148 net.cpp:120] Setting up relu1
+I0827 15:34:24.740664 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:24.740664 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:34:24.740664 11148 net.cpp:90] Creating Layer norm1
+I0827 15:34:24.740664 11148 net.cpp:422] norm1 <- pool1
+I0827 15:34:24.740664 11148 net.cpp:380] norm1 -> norm1
+I0827 15:34:24.740664 11148 net.cpp:120] Setting up norm1
+I0827 15:34:24.740664 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:24.740664 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:34:24.740664 11148 net.cpp:90] Creating Layer conv2
+I0827 15:34:24.740664 11148 net.cpp:422] conv2 <- norm1
+I0827 15:34:24.740664 11148 net.cpp:380] conv2 -> conv2
+I0827 15:34:24.740664 11148 net.cpp:120] Setting up conv2
+I0827 15:34:24.740664 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:24.740664 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:34:24.740664 11148 net.cpp:90] Creating Layer relu2
+I0827 15:34:24.740664 11148 net.cpp:422] relu2 <- conv2
+I0827 15:34:24.740664 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:34:24.741665 11148 net.cpp:120] Setting up relu2
+I0827 15:34:24.741665 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:24.741665 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:34:24.741665 11148 net.cpp:90] Creating Layer pool2
+I0827 15:34:24.741665 11148 net.cpp:422] pool2 <- conv2
+I0827 15:34:24.741665 11148 net.cpp:380] pool2 -> pool2
+I0827 15:34:24.741665 11148 net.cpp:120] Setting up pool2
+I0827 15:34:24.741665 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:34:24.741665 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:34:24.741665 11148 net.cpp:90] Creating Layer norm2
+I0827 15:34:24.741665 11148 net.cpp:422] norm2 <- pool2
+I0827 15:34:24.741665 11148 net.cpp:380] norm2 -> norm2
+I0827 15:34:24.741665 11148 net.cpp:120] Setting up norm2
+I0827 15:34:24.741665 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:34:24.741665 11148 layer_factory.hpp:74] Creating layer conv3
+I0827 15:34:24.741665 11148 net.cpp:90] Creating Layer conv3
+I0827 15:34:24.741665 11148 net.cpp:422] conv3 <- norm2
+I0827 15:34:24.741665 11148 net.cpp:380] conv3 -> conv3
+I0827 15:34:24.741665 11148 net.cpp:120] Setting up conv3
+I0827 15:34:24.741665 11148 net.cpp:127] Top shape: 1 64 8 8 (4096)
+I0827 15:34:24.741665 11148 net.cpp:194] conv3 does not need backward computation.
+I0827 15:34:24.741665 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:34:24.741665 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:34:24.741665 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:34:24.741665 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:34:24.741665 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:34:24.741665 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:34:24.741665 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:34:24.741665 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:34:24.741665 11148 net.cpp:235] This network produces output conv3
+I0827 15:34:24.741665 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:34:24.741665 11148 net.cpp:247] Network initialization done.
+I0827 15:34:24.741665 11148 net.cpp:248] Memory required for data: 327680
+I0827 15:34:35.840108 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 1
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "norm2"
+  top: "conv3"
+  convolution_param {
+    num_output: 64
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+I0827 15:34:35.840108 11148 net.cpp:382] Input 0 -> data
+I0827 15:34:35.840108 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:34:35.840108 11148 net.cpp:90] Creating Layer conv1
+I0827 15:34:35.840108 11148 net.cpp:422] conv1 <- data
+I0827 15:34:35.840108 11148 net.cpp:380] conv1 -> conv1
+I0827 15:34:35.840108 11148 net.cpp:120] Setting up conv1
+I0827 15:34:35.840108 11148 net.cpp:127] Top shape: 1 32 32 32 (32768)
+I0827 15:34:35.840108 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:34:35.840108 11148 net.cpp:90] Creating Layer pool1
+I0827 15:34:35.840108 11148 net.cpp:422] pool1 <- conv1
+I0827 15:34:35.840108 11148 net.cpp:380] pool1 -> pool1
+I0827 15:34:35.840108 11148 net.cpp:120] Setting up pool1
+I0827 15:34:35.840108 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:35.840108 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:34:35.840108 11148 net.cpp:90] Creating Layer relu1
+I0827 15:34:35.840108 11148 net.cpp:422] relu1 <- pool1
+I0827 15:34:35.840108 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:34:35.840108 11148 net.cpp:120] Setting up relu1
+I0827 15:34:35.840108 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:35.840108 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:34:35.840108 11148 net.cpp:90] Creating Layer norm1
+I0827 15:34:35.840108 11148 net.cpp:422] norm1 <- pool1
+I0827 15:34:35.840108 11148 net.cpp:380] norm1 -> norm1
+I0827 15:34:35.840108 11148 net.cpp:120] Setting up norm1
+I0827 15:34:35.840108 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:35.840108 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:34:35.840108 11148 net.cpp:90] Creating Layer conv2
+I0827 15:34:35.840108 11148 net.cpp:422] conv2 <- norm1
+I0827 15:34:35.840108 11148 net.cpp:380] conv2 -> conv2
+I0827 15:34:35.840108 11148 net.cpp:120] Setting up conv2
+I0827 15:34:35.840108 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:35.840108 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:34:35.840108 11148 net.cpp:90] Creating Layer relu2
+I0827 15:34:35.840108 11148 net.cpp:422] relu2 <- conv2
+I0827 15:34:35.840108 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:34:35.840108 11148 net.cpp:120] Setting up relu2
+I0827 15:34:35.840108 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:35.840108 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:34:35.840108 11148 net.cpp:90] Creating Layer pool2
+I0827 15:34:35.840108 11148 net.cpp:422] pool2 <- conv2
+I0827 15:34:35.840108 11148 net.cpp:380] pool2 -> pool2
+I0827 15:34:35.840108 11148 net.cpp:120] Setting up pool2
+I0827 15:34:35.840108 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:34:35.840108 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:34:35.840108 11148 net.cpp:90] Creating Layer norm2
+I0827 15:34:35.840108 11148 net.cpp:422] norm2 <- pool2
+I0827 15:34:35.840108 11148 net.cpp:380] norm2 -> norm2
+I0827 15:34:35.840108 11148 net.cpp:120] Setting up norm2
+I0827 15:34:35.840108 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:34:35.840108 11148 layer_factory.hpp:74] Creating layer conv3
+I0827 15:34:35.840108 11148 net.cpp:90] Creating Layer conv3
+I0827 15:34:35.840108 11148 net.cpp:422] conv3 <- norm2
+I0827 15:34:35.840108 11148 net.cpp:380] conv3 -> conv3
+I0827 15:34:35.840108 11148 net.cpp:120] Setting up conv3
+I0827 15:34:35.840108 11148 net.cpp:127] Top shape: 1 64 8 8 (4096)
+I0827 15:34:35.840108 11148 net.cpp:194] conv3 does not need backward computation.
+I0827 15:34:35.840108 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:34:35.840108 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:34:35.840108 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:34:35.840108 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:34:35.840108 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:34:35.840108 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:34:35.840108 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:34:35.840108 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:34:35.840108 11148 net.cpp:235] This network produces output conv3
+I0827 15:34:35.840108 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:34:35.840108 11148 net.cpp:247] Network initialization done.
+I0827 15:34:35.840108 11148 net.cpp:248] Memory required for data: 327680
+I0827 15:34:44.200834 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 1
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "norm2"
+  top: "conv3"
+  convolution_param {
+    num_output: 64
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+I0827 15:34:44.200834 11148 net.cpp:382] Input 0 -> data
+I0827 15:34:44.200834 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:34:44.200834 11148 net.cpp:90] Creating Layer conv1
+I0827 15:34:44.200834 11148 net.cpp:422] conv1 <- data
+I0827 15:34:44.200834 11148 net.cpp:380] conv1 -> conv1
+I0827 15:34:44.200834 11148 net.cpp:120] Setting up conv1
+I0827 15:34:44.200834 11148 net.cpp:127] Top shape: 1 32 32 32 (32768)
+I0827 15:34:44.200834 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:34:44.200834 11148 net.cpp:90] Creating Layer pool1
+I0827 15:34:44.200834 11148 net.cpp:422] pool1 <- conv1
+I0827 15:34:44.200834 11148 net.cpp:380] pool1 -> pool1
+I0827 15:34:44.200834 11148 net.cpp:120] Setting up pool1
+I0827 15:34:44.200834 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:44.200834 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:34:44.200834 11148 net.cpp:90] Creating Layer relu1
+I0827 15:34:44.200834 11148 net.cpp:422] relu1 <- pool1
+I0827 15:34:44.200834 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:34:44.200834 11148 net.cpp:120] Setting up relu1
+I0827 15:34:44.200834 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:44.200834 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:34:44.200834 11148 net.cpp:90] Creating Layer norm1
+I0827 15:34:44.200834 11148 net.cpp:422] norm1 <- pool1
+I0827 15:34:44.200834 11148 net.cpp:380] norm1 -> norm1
+I0827 15:34:44.200834 11148 net.cpp:120] Setting up norm1
+I0827 15:34:44.200834 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:44.200834 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:34:44.200834 11148 net.cpp:90] Creating Layer conv2
+I0827 15:34:44.200834 11148 net.cpp:422] conv2 <- norm1
+I0827 15:34:44.200834 11148 net.cpp:380] conv2 -> conv2
+I0827 15:34:44.200834 11148 net.cpp:120] Setting up conv2
+I0827 15:34:44.200834 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:44.200834 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:34:44.200834 11148 net.cpp:90] Creating Layer relu2
+I0827 15:34:44.200834 11148 net.cpp:422] relu2 <- conv2
+I0827 15:34:44.200834 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:34:44.200834 11148 net.cpp:120] Setting up relu2
+I0827 15:34:44.200834 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:34:44.200834 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:34:44.200834 11148 net.cpp:90] Creating Layer pool2
+I0827 15:34:44.200834 11148 net.cpp:422] pool2 <- conv2
+I0827 15:34:44.200834 11148 net.cpp:380] pool2 -> pool2
+I0827 15:34:44.200834 11148 net.cpp:120] Setting up pool2
+I0827 15:34:44.200834 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:34:44.200834 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:34:44.200834 11148 net.cpp:90] Creating Layer norm2
+I0827 15:34:44.200834 11148 net.cpp:422] norm2 <- pool2
+I0827 15:34:44.200834 11148 net.cpp:380] norm2 -> norm2
+I0827 15:34:44.200834 11148 net.cpp:120] Setting up norm2
+I0827 15:34:44.200834 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:34:44.200834 11148 layer_factory.hpp:74] Creating layer conv3
+I0827 15:34:44.200834 11148 net.cpp:90] Creating Layer conv3
+I0827 15:34:44.200834 11148 net.cpp:422] conv3 <- norm2
+I0827 15:34:44.200834 11148 net.cpp:380] conv3 -> conv3
+I0827 15:34:44.200834 11148 net.cpp:120] Setting up conv3
+I0827 15:34:44.200834 11148 net.cpp:127] Top shape: 1 64 8 8 (4096)
+I0827 15:34:44.200834 11148 net.cpp:194] conv3 does not need backward computation.
+I0827 15:34:44.200834 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:34:44.200834 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:34:44.200834 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:34:44.200834 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:34:44.200834 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:34:44.201835 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:34:44.201835 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:34:44.201835 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:34:44.201835 11148 net.cpp:235] This network produces output conv3
+I0827 15:34:44.201835 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:34:44.201835 11148 net.cpp:247] Network initialization done.
+I0827 15:34:44.201835 11148 net.cpp:248] Memory required for data: 327680
+I0827 15:35:18.806615 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 1
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+I0827 15:35:18.806615 11148 net.cpp:382] Input 0 -> data
+I0827 15:35:18.806615 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:35:18.806615 11148 net.cpp:90] Creating Layer conv1
+I0827 15:35:18.806615 11148 net.cpp:422] conv1 <- data
+I0827 15:35:18.806615 11148 net.cpp:380] conv1 -> conv1
+I0827 15:35:18.806615 11148 net.cpp:120] Setting up conv1
+I0827 15:35:18.806615 11148 net.cpp:127] Top shape: 1 32 32 32 (32768)
+I0827 15:35:18.806615 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:35:18.806615 11148 net.cpp:90] Creating Layer pool1
+I0827 15:35:18.806615 11148 net.cpp:422] pool1 <- conv1
+I0827 15:35:18.806615 11148 net.cpp:380] pool1 -> pool1
+I0827 15:35:18.806615 11148 net.cpp:120] Setting up pool1
+I0827 15:35:18.806615 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:18.806615 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:35:18.806615 11148 net.cpp:90] Creating Layer relu1
+I0827 15:35:18.806615 11148 net.cpp:422] relu1 <- pool1
+I0827 15:35:18.806615 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:35:18.806615 11148 net.cpp:120] Setting up relu1
+I0827 15:35:18.806615 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:18.806615 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:35:18.806615 11148 net.cpp:90] Creating Layer norm1
+I0827 15:35:18.806615 11148 net.cpp:422] norm1 <- pool1
+I0827 15:35:18.806615 11148 net.cpp:380] norm1 -> norm1
+I0827 15:35:18.806615 11148 net.cpp:120] Setting up norm1
+I0827 15:35:18.806615 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:18.806615 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:35:18.806615 11148 net.cpp:90] Creating Layer conv2
+I0827 15:35:18.806615 11148 net.cpp:422] conv2 <- norm1
+I0827 15:35:18.806615 11148 net.cpp:380] conv2 -> conv2
+I0827 15:35:18.806615 11148 net.cpp:120] Setting up conv2
+I0827 15:35:18.806615 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:18.806615 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:35:18.806615 11148 net.cpp:90] Creating Layer relu2
+I0827 15:35:18.806615 11148 net.cpp:422] relu2 <- conv2
+I0827 15:35:18.806615 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:35:18.806615 11148 net.cpp:120] Setting up relu2
+I0827 15:35:18.806615 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:18.806615 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:35:18.806615 11148 net.cpp:90] Creating Layer pool2
+I0827 15:35:18.806615 11148 net.cpp:422] pool2 <- conv2
+I0827 15:35:18.806615 11148 net.cpp:380] pool2 -> pool2
+I0827 15:35:18.806615 11148 net.cpp:120] Setting up pool2
+I0827 15:35:18.806615 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:35:18.806615 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:35:18.806615 11148 net.cpp:90] Creating Layer norm2
+I0827 15:35:18.806615 11148 net.cpp:422] norm2 <- pool2
+I0827 15:35:18.806615 11148 net.cpp:380] norm2 -> norm2
+I0827 15:35:18.806615 11148 net.cpp:120] Setting up norm2
+I0827 15:35:18.806615 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:35:18.806615 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:35:18.806615 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:35:18.806615 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:35:18.806615 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:35:18.806615 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:35:18.806615 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:35:18.806615 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:35:18.806615 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:35:18.806615 11148 net.cpp:235] This network produces output norm2
+I0827 15:35:18.806615 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:35:18.806615 11148 net.cpp:247] Network initialization done.
+I0827 15:35:18.806615 11148 net.cpp:248] Memory required for data: 311296
+I0827 15:35:39.247421 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 1
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+I0827 15:35:39.247421 11148 net.cpp:382] Input 0 -> data
+I0827 15:35:39.247421 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:35:39.247421 11148 net.cpp:90] Creating Layer conv1
+I0827 15:35:39.247421 11148 net.cpp:422] conv1 <- data
+I0827 15:35:39.247421 11148 net.cpp:380] conv1 -> conv1
+I0827 15:35:39.247421 11148 net.cpp:120] Setting up conv1
+I0827 15:35:39.247421 11148 net.cpp:127] Top shape: 1 32 32 32 (32768)
+I0827 15:35:39.247421 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:35:39.247421 11148 net.cpp:90] Creating Layer pool1
+I0827 15:35:39.247421 11148 net.cpp:422] pool1 <- conv1
+I0827 15:35:39.247421 11148 net.cpp:380] pool1 -> pool1
+I0827 15:35:39.247421 11148 net.cpp:120] Setting up pool1
+I0827 15:35:39.247421 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:39.247421 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:35:39.247421 11148 net.cpp:90] Creating Layer relu1
+I0827 15:35:39.247421 11148 net.cpp:422] relu1 <- pool1
+I0827 15:35:39.247421 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:35:39.247421 11148 net.cpp:120] Setting up relu1
+I0827 15:35:39.247421 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:39.247421 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:35:39.247421 11148 net.cpp:90] Creating Layer norm1
+I0827 15:35:39.247421 11148 net.cpp:422] norm1 <- pool1
+I0827 15:35:39.247421 11148 net.cpp:380] norm1 -> norm1
+I0827 15:35:39.247421 11148 net.cpp:120] Setting up norm1
+I0827 15:35:39.247421 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:39.247421 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:35:39.247421 11148 net.cpp:90] Creating Layer conv2
+I0827 15:35:39.247421 11148 net.cpp:422] conv2 <- norm1
+I0827 15:35:39.247421 11148 net.cpp:380] conv2 -> conv2
+I0827 15:35:39.247421 11148 net.cpp:120] Setting up conv2
+I0827 15:35:39.247421 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:39.247421 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:35:39.247421 11148 net.cpp:90] Creating Layer relu2
+I0827 15:35:39.247421 11148 net.cpp:422] relu2 <- conv2
+I0827 15:35:39.247421 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:35:39.247421 11148 net.cpp:120] Setting up relu2
+I0827 15:35:39.247421 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:39.247421 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:35:39.247421 11148 net.cpp:90] Creating Layer pool2
+I0827 15:35:39.247421 11148 net.cpp:422] pool2 <- conv2
+I0827 15:35:39.247421 11148 net.cpp:380] pool2 -> pool2
+I0827 15:35:39.247421 11148 net.cpp:120] Setting up pool2
+I0827 15:35:39.247421 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:35:39.247421 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:35:39.247421 11148 net.cpp:90] Creating Layer norm2
+I0827 15:35:39.247421 11148 net.cpp:422] norm2 <- pool2
+I0827 15:35:39.247421 11148 net.cpp:380] norm2 -> norm2
+I0827 15:35:39.247421 11148 net.cpp:120] Setting up norm2
+I0827 15:35:39.247421 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:35:39.247421 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:35:39.247421 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:35:39.247421 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:35:39.247421 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:35:39.247421 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:35:39.247421 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:35:39.247421 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:35:39.247421 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:35:39.247421 11148 net.cpp:235] This network produces output norm2
+I0827 15:35:39.247421 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:35:39.247421 11148 net.cpp:247] Network initialization done.
+I0827 15:35:39.247421 11148 net.cpp:248] Memory required for data: 311296
+I0827 15:35:48.677467 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 1
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+I0827 15:35:48.677467 11148 net.cpp:382] Input 0 -> data
+I0827 15:35:48.677467 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:35:48.677467 11148 net.cpp:90] Creating Layer conv1
+I0827 15:35:48.677467 11148 net.cpp:422] conv1 <- data
+I0827 15:35:48.677467 11148 net.cpp:380] conv1 -> conv1
+I0827 15:35:48.677467 11148 net.cpp:120] Setting up conv1
+I0827 15:35:48.677467 11148 net.cpp:127] Top shape: 1 32 32 32 (32768)
+I0827 15:35:48.677467 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:35:48.677467 11148 net.cpp:90] Creating Layer pool1
+I0827 15:35:48.677467 11148 net.cpp:422] pool1 <- conv1
+I0827 15:35:48.677467 11148 net.cpp:380] pool1 -> pool1
+I0827 15:35:48.677467 11148 net.cpp:120] Setting up pool1
+I0827 15:35:48.677467 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:48.677467 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:35:48.677467 11148 net.cpp:90] Creating Layer relu1
+I0827 15:35:48.677467 11148 net.cpp:422] relu1 <- pool1
+I0827 15:35:48.677467 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:35:48.677467 11148 net.cpp:120] Setting up relu1
+I0827 15:35:48.677467 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:48.677467 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:35:48.677467 11148 net.cpp:90] Creating Layer norm1
+I0827 15:35:48.677467 11148 net.cpp:422] norm1 <- pool1
+I0827 15:35:48.677467 11148 net.cpp:380] norm1 -> norm1
+I0827 15:35:48.677467 11148 net.cpp:120] Setting up norm1
+I0827 15:35:48.677467 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:48.677467 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:35:48.677467 11148 net.cpp:90] Creating Layer conv2
+I0827 15:35:48.677467 11148 net.cpp:422] conv2 <- norm1
+I0827 15:35:48.677467 11148 net.cpp:380] conv2 -> conv2
+I0827 15:35:48.677467 11148 net.cpp:120] Setting up conv2
+I0827 15:35:48.677467 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:48.678469 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:35:48.678469 11148 net.cpp:90] Creating Layer relu2
+I0827 15:35:48.678469 11148 net.cpp:422] relu2 <- conv2
+I0827 15:35:48.678469 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:35:48.678469 11148 net.cpp:120] Setting up relu2
+I0827 15:35:48.678469 11148 net.cpp:127] Top shape: 1 32 16 16 (8192)
+I0827 15:35:48.678469 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:35:48.678469 11148 net.cpp:90] Creating Layer pool2
+I0827 15:35:48.678469 11148 net.cpp:422] pool2 <- conv2
+I0827 15:35:48.678469 11148 net.cpp:380] pool2 -> pool2
+I0827 15:35:48.678469 11148 net.cpp:120] Setting up pool2
+I0827 15:35:48.678469 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:35:48.678469 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:35:48.678469 11148 net.cpp:90] Creating Layer norm2
+I0827 15:35:48.678469 11148 net.cpp:422] norm2 <- pool2
+I0827 15:35:48.678469 11148 net.cpp:380] norm2 -> norm2
+I0827 15:35:48.678469 11148 net.cpp:120] Setting up norm2
+I0827 15:35:48.678469 11148 net.cpp:127] Top shape: 1 32 8 8 (2048)
+I0827 15:35:48.678469 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:35:48.678469 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:35:48.678469 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:35:48.678469 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:35:48.678469 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:35:48.678469 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:35:48.678469 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:35:48.678469 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:35:48.678469 11148 net.cpp:235] This network produces output norm2
+I0827 15:35:48.678469 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:35:48.678469 11148 net.cpp:247] Network initialization done.
+I0827 15:35:48.678469 11148 net.cpp:248] Memory required for data: 311296
+I0827 15:36:16.215003 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 10
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+I0827 15:36:16.215003 11148 net.cpp:382] Input 0 -> data
+I0827 15:36:16.215003 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:36:16.215003 11148 net.cpp:90] Creating Layer conv1
+I0827 15:36:16.215003 11148 net.cpp:422] conv1 <- data
+I0827 15:36:16.215003 11148 net.cpp:380] conv1 -> conv1
+I0827 15:36:16.215003 11148 net.cpp:120] Setting up conv1
+I0827 15:36:16.215003 11148 net.cpp:127] Top shape: 10 32 32 32 (327680)
+I0827 15:36:16.215003 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:36:16.215003 11148 net.cpp:90] Creating Layer pool1
+I0827 15:36:16.215003 11148 net.cpp:422] pool1 <- conv1
+I0827 15:36:16.215003 11148 net.cpp:380] pool1 -> pool1
+I0827 15:36:16.215003 11148 net.cpp:120] Setting up pool1
+I0827 15:36:16.215003 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:16.215003 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:36:16.215003 11148 net.cpp:90] Creating Layer relu1
+I0827 15:36:16.215003 11148 net.cpp:422] relu1 <- pool1
+I0827 15:36:16.215003 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:36:16.215003 11148 net.cpp:120] Setting up relu1
+I0827 15:36:16.216003 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:16.216003 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:36:16.216003 11148 net.cpp:90] Creating Layer norm1
+I0827 15:36:16.216003 11148 net.cpp:422] norm1 <- pool1
+I0827 15:36:16.216003 11148 net.cpp:380] norm1 -> norm1
+I0827 15:36:16.216003 11148 net.cpp:120] Setting up norm1
+I0827 15:36:16.216003 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:16.216003 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:36:16.216003 11148 net.cpp:90] Creating Layer conv2
+I0827 15:36:16.216003 11148 net.cpp:422] conv2 <- norm1
+I0827 15:36:16.216003 11148 net.cpp:380] conv2 -> conv2
+I0827 15:36:16.216003 11148 net.cpp:120] Setting up conv2
+I0827 15:36:16.216003 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:16.216003 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:36:16.216003 11148 net.cpp:90] Creating Layer relu2
+I0827 15:36:16.216003 11148 net.cpp:422] relu2 <- conv2
+I0827 15:36:16.216003 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:36:16.216003 11148 net.cpp:120] Setting up relu2
+I0827 15:36:16.216003 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:16.216003 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:36:16.216003 11148 net.cpp:90] Creating Layer pool2
+I0827 15:36:16.216003 11148 net.cpp:422] pool2 <- conv2
+I0827 15:36:16.216003 11148 net.cpp:380] pool2 -> pool2
+I0827 15:36:16.216003 11148 net.cpp:120] Setting up pool2
+I0827 15:36:16.216003 11148 net.cpp:127] Top shape: 10 32 8 8 (20480)
+I0827 15:36:16.216003 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:36:16.216003 11148 net.cpp:90] Creating Layer norm2
+I0827 15:36:16.216003 11148 net.cpp:422] norm2 <- pool2
+I0827 15:36:16.216003 11148 net.cpp:380] norm2 -> norm2
+I0827 15:36:16.216003 11148 net.cpp:120] Setting up norm2
+I0827 15:36:16.216003 11148 net.cpp:127] Top shape: 10 32 8 8 (20480)
+I0827 15:36:16.216003 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:36:16.216003 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:36:16.216003 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:36:16.216003 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:36:16.216003 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:36:16.216003 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:36:16.216003 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:36:16.216003 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:36:16.216003 11148 net.cpp:235] This network produces output norm2
+I0827 15:36:16.216003 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:36:16.216003 11148 net.cpp:247] Network initialization done.
+I0827 15:36:16.216003 11148 net.cpp:248] Memory required for data: 3112960
+I0827 15:36:25.862823 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 10
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+I0827 15:36:25.862823 11148 net.cpp:382] Input 0 -> data
+I0827 15:36:25.862823 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:36:25.862823 11148 net.cpp:90] Creating Layer conv1
+I0827 15:36:25.862823 11148 net.cpp:422] conv1 <- data
+I0827 15:36:25.862823 11148 net.cpp:380] conv1 -> conv1
+I0827 15:36:25.862823 11148 net.cpp:120] Setting up conv1
+I0827 15:36:25.862823 11148 net.cpp:127] Top shape: 10 32 32 32 (327680)
+I0827 15:36:25.862823 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:36:25.862823 11148 net.cpp:90] Creating Layer pool1
+I0827 15:36:25.862823 11148 net.cpp:422] pool1 <- conv1
+I0827 15:36:25.862823 11148 net.cpp:380] pool1 -> pool1
+I0827 15:36:25.862823 11148 net.cpp:120] Setting up pool1
+I0827 15:36:25.863824 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:25.863824 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:36:25.863824 11148 net.cpp:90] Creating Layer relu1
+I0827 15:36:25.863824 11148 net.cpp:422] relu1 <- pool1
+I0827 15:36:25.863824 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:36:25.863824 11148 net.cpp:120] Setting up relu1
+I0827 15:36:25.863824 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:25.863824 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:36:25.863824 11148 net.cpp:90] Creating Layer norm1
+I0827 15:36:25.863824 11148 net.cpp:422] norm1 <- pool1
+I0827 15:36:25.863824 11148 net.cpp:380] norm1 -> norm1
+I0827 15:36:25.863824 11148 net.cpp:120] Setting up norm1
+I0827 15:36:25.863824 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:25.863824 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:36:25.863824 11148 net.cpp:90] Creating Layer conv2
+I0827 15:36:25.863824 11148 net.cpp:422] conv2 <- norm1
+I0827 15:36:25.863824 11148 net.cpp:380] conv2 -> conv2
+I0827 15:36:25.863824 11148 net.cpp:120] Setting up conv2
+I0827 15:36:25.863824 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:25.863824 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:36:25.863824 11148 net.cpp:90] Creating Layer relu2
+I0827 15:36:25.863824 11148 net.cpp:422] relu2 <- conv2
+I0827 15:36:25.863824 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:36:25.863824 11148 net.cpp:120] Setting up relu2
+I0827 15:36:25.863824 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:25.863824 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:36:25.863824 11148 net.cpp:90] Creating Layer pool2
+I0827 15:36:25.863824 11148 net.cpp:422] pool2 <- conv2
+I0827 15:36:25.863824 11148 net.cpp:380] pool2 -> pool2
+I0827 15:36:25.863824 11148 net.cpp:120] Setting up pool2
+I0827 15:36:25.863824 11148 net.cpp:127] Top shape: 10 32 8 8 (20480)
+I0827 15:36:25.863824 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:36:25.863824 11148 net.cpp:90] Creating Layer norm2
+I0827 15:36:25.863824 11148 net.cpp:422] norm2 <- pool2
+I0827 15:36:25.863824 11148 net.cpp:380] norm2 -> norm2
+I0827 15:36:25.863824 11148 net.cpp:120] Setting up norm2
+I0827 15:36:25.863824 11148 net.cpp:127] Top shape: 10 32 8 8 (20480)
+I0827 15:36:25.863824 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:36:25.863824 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:36:25.863824 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:36:25.863824 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:36:25.863824 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:36:25.863824 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:36:25.863824 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:36:25.863824 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:36:25.863824 11148 net.cpp:235] This network produces output norm2
+I0827 15:36:25.863824 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:36:25.863824 11148 net.cpp:247] Network initialization done.
+I0827 15:36:25.863824 11148 net.cpp:248] Memory required for data: 3112960
+I0827 15:36:32.789942 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 10
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+I0827 15:36:32.789942 11148 net.cpp:382] Input 0 -> data
+I0827 15:36:32.789942 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:36:32.789942 11148 net.cpp:90] Creating Layer conv1
+I0827 15:36:32.789942 11148 net.cpp:422] conv1 <- data
+I0827 15:36:32.789942 11148 net.cpp:380] conv1 -> conv1
+I0827 15:36:32.789942 11148 net.cpp:120] Setting up conv1
+I0827 15:36:32.789942 11148 net.cpp:127] Top shape: 10 32 32 32 (327680)
+I0827 15:36:32.789942 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:36:32.789942 11148 net.cpp:90] Creating Layer pool1
+I0827 15:36:32.789942 11148 net.cpp:422] pool1 <- conv1
+I0827 15:36:32.789942 11148 net.cpp:380] pool1 -> pool1
+I0827 15:36:32.789942 11148 net.cpp:120] Setting up pool1
+I0827 15:36:32.789942 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:32.789942 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:36:32.789942 11148 net.cpp:90] Creating Layer relu1
+I0827 15:36:32.789942 11148 net.cpp:422] relu1 <- pool1
+I0827 15:36:32.789942 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:36:32.789942 11148 net.cpp:120] Setting up relu1
+I0827 15:36:32.789942 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:32.789942 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:36:32.789942 11148 net.cpp:90] Creating Layer norm1
+I0827 15:36:32.789942 11148 net.cpp:422] norm1 <- pool1
+I0827 15:36:32.789942 11148 net.cpp:380] norm1 -> norm1
+I0827 15:36:32.789942 11148 net.cpp:120] Setting up norm1
+I0827 15:36:32.789942 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:32.789942 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:36:32.789942 11148 net.cpp:90] Creating Layer conv2
+I0827 15:36:32.789942 11148 net.cpp:422] conv2 <- norm1
+I0827 15:36:32.789942 11148 net.cpp:380] conv2 -> conv2
+I0827 15:36:32.789942 11148 net.cpp:120] Setting up conv2
+I0827 15:36:32.789942 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:32.789942 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:36:32.789942 11148 net.cpp:90] Creating Layer relu2
+I0827 15:36:32.789942 11148 net.cpp:422] relu2 <- conv2
+I0827 15:36:32.789942 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:36:32.789942 11148 net.cpp:120] Setting up relu2
+I0827 15:36:32.789942 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:36:32.789942 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:36:32.789942 11148 net.cpp:90] Creating Layer pool2
+I0827 15:36:32.789942 11148 net.cpp:422] pool2 <- conv2
+I0827 15:36:32.789942 11148 net.cpp:380] pool2 -> pool2
+I0827 15:36:32.789942 11148 net.cpp:120] Setting up pool2
+I0827 15:36:32.789942 11148 net.cpp:127] Top shape: 10 32 8 8 (20480)
+I0827 15:36:32.789942 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:36:32.789942 11148 net.cpp:90] Creating Layer norm2
+I0827 15:36:32.789942 11148 net.cpp:422] norm2 <- pool2
+I0827 15:36:32.789942 11148 net.cpp:380] norm2 -> norm2
+I0827 15:36:32.789942 11148 net.cpp:120] Setting up norm2
+I0827 15:36:32.789942 11148 net.cpp:127] Top shape: 10 32 8 8 (20480)
+I0827 15:36:32.789942 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:36:32.789942 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:36:32.789942 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:36:32.789942 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:36:32.789942 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:36:32.789942 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:36:32.789942 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:36:32.789942 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:36:32.789942 11148 net.cpp:235] This network produces output norm2
+I0827 15:36:32.789942 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:36:32.789942 11148 net.cpp:247] Network initialization done.
+I0827 15:36:32.789942 11148 net.cpp:248] Memory required for data: 3112960
+I0827 15:37:24.366300 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 10
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+I0827 15:37:24.366300 11148 net.cpp:382] Input 0 -> data
+I0827 15:37:24.366300 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:37:24.366300 11148 net.cpp:90] Creating Layer conv1
+I0827 15:37:24.366300 11148 net.cpp:422] conv1 <- data
+I0827 15:37:24.366300 11148 net.cpp:380] conv1 -> conv1
+I0827 15:37:24.366300 11148 net.cpp:120] Setting up conv1
+I0827 15:37:24.366300 11148 net.cpp:127] Top shape: 10 32 32 32 (327680)
+I0827 15:37:24.366300 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:37:24.366300 11148 net.cpp:90] Creating Layer pool1
+I0827 15:37:24.366300 11148 net.cpp:422] pool1 <- conv1
+I0827 15:37:24.366300 11148 net.cpp:380] pool1 -> pool1
+I0827 15:37:24.366300 11148 net.cpp:120] Setting up pool1
+I0827 15:37:24.366300 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:37:24.366300 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:37:24.366300 11148 net.cpp:90] Creating Layer relu1
+I0827 15:37:24.366300 11148 net.cpp:422] relu1 <- pool1
+I0827 15:37:24.366300 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:37:24.366300 11148 net.cpp:120] Setting up relu1
+I0827 15:37:24.366300 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:37:24.366300 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:37:24.366300 11148 net.cpp:90] Creating Layer norm1
+I0827 15:37:24.366300 11148 net.cpp:422] norm1 <- pool1
+I0827 15:37:24.366300 11148 net.cpp:380] norm1 -> norm1
+I0827 15:37:24.366300 11148 net.cpp:120] Setting up norm1
+I0827 15:37:24.366300 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:37:24.366300 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:37:24.366300 11148 net.cpp:90] Creating Layer conv2
+I0827 15:37:24.366300 11148 net.cpp:422] conv2 <- norm1
+I0827 15:37:24.366300 11148 net.cpp:380] conv2 -> conv2
+I0827 15:37:24.366300 11148 net.cpp:120] Setting up conv2
+I0827 15:37:24.366300 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:37:24.366300 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:37:24.366300 11148 net.cpp:90] Creating Layer relu2
+I0827 15:37:24.366300 11148 net.cpp:422] relu2 <- conv2
+I0827 15:37:24.366300 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:37:24.366300 11148 net.cpp:120] Setting up relu2
+I0827 15:37:24.366300 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:37:24.366300 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:37:24.366300 11148 net.cpp:90] Creating Layer pool2
+I0827 15:37:24.366300 11148 net.cpp:422] pool2 <- conv2
+I0827 15:37:24.366300 11148 net.cpp:380] pool2 -> pool2
+I0827 15:37:24.366300 11148 net.cpp:120] Setting up pool2
+I0827 15:37:24.366300 11148 net.cpp:127] Top shape: 10 32 8 8 (20480)
+I0827 15:37:24.366300 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:37:24.366300 11148 net.cpp:90] Creating Layer norm2
+I0827 15:37:24.366300 11148 net.cpp:422] norm2 <- pool2
+I0827 15:37:24.366300 11148 net.cpp:380] norm2 -> norm2
+I0827 15:37:24.366300 11148 net.cpp:120] Setting up norm2
+I0827 15:37:24.366300 11148 net.cpp:127] Top shape: 10 32 8 8 (20480)
+I0827 15:37:24.366300 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:37:24.366300 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:37:24.366300 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:37:24.366300 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:37:24.366300 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:37:24.366300 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:37:24.366300 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:37:24.366300 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:37:24.366300 11148 net.cpp:235] This network produces output norm2
+I0827 15:37:24.366300 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:37:24.366300 11148 net.cpp:247] Network initialization done.
+I0827 15:37:24.366300 11148 net.cpp:248] Memory required for data: 3112960
+I0827 15:37:41.036857 11148 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_full_deploy"
+input: "data"
+input_dim: 10
+input_dim: 3
+input_dim: 32
+input_dim: 32
+state {
+  phase: TRAIN
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 3
+    alpha: 5e-005
+    beta: 0.75
+    norm_region: WITHIN_CHANNEL
+  }
+}
+I0827 15:37:41.036857 11148 net.cpp:382] Input 0 -> data
+I0827 15:37:41.036857 11148 layer_factory.hpp:74] Creating layer conv1
+I0827 15:37:41.036857 11148 net.cpp:90] Creating Layer conv1
+I0827 15:37:41.036857 11148 net.cpp:422] conv1 <- data
+I0827 15:37:41.036857 11148 net.cpp:380] conv1 -> conv1
+I0827 15:37:41.036857 11148 net.cpp:120] Setting up conv1
+I0827 15:37:41.037858 11148 net.cpp:127] Top shape: 10 32 32 32 (327680)
+I0827 15:37:41.037858 11148 layer_factory.hpp:74] Creating layer pool1
+I0827 15:37:41.037858 11148 net.cpp:90] Creating Layer pool1
+I0827 15:37:41.037858 11148 net.cpp:422] pool1 <- conv1
+I0827 15:37:41.037858 11148 net.cpp:380] pool1 -> pool1
+I0827 15:37:41.037858 11148 net.cpp:120] Setting up pool1
+I0827 15:37:41.037858 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:37:41.037858 11148 layer_factory.hpp:74] Creating layer relu1
+I0827 15:37:41.037858 11148 net.cpp:90] Creating Layer relu1
+I0827 15:37:41.037858 11148 net.cpp:422] relu1 <- pool1
+I0827 15:37:41.037858 11148 net.cpp:369] relu1 -> pool1 (in-place)
+I0827 15:37:41.037858 11148 net.cpp:120] Setting up relu1
+I0827 15:37:41.037858 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:37:41.037858 11148 layer_factory.hpp:74] Creating layer norm1
+I0827 15:37:41.037858 11148 net.cpp:90] Creating Layer norm1
+I0827 15:37:41.037858 11148 net.cpp:422] norm1 <- pool1
+I0827 15:37:41.037858 11148 net.cpp:380] norm1 -> norm1
+I0827 15:37:41.037858 11148 net.cpp:120] Setting up norm1
+I0827 15:37:41.037858 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:37:41.037858 11148 layer_factory.hpp:74] Creating layer conv2
+I0827 15:37:41.037858 11148 net.cpp:90] Creating Layer conv2
+I0827 15:37:41.037858 11148 net.cpp:422] conv2 <- norm1
+I0827 15:37:41.037858 11148 net.cpp:380] conv2 -> conv2
+I0827 15:37:41.037858 11148 net.cpp:120] Setting up conv2
+I0827 15:37:41.037858 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:37:41.037858 11148 layer_factory.hpp:74] Creating layer relu2
+I0827 15:37:41.037858 11148 net.cpp:90] Creating Layer relu2
+I0827 15:37:41.037858 11148 net.cpp:422] relu2 <- conv2
+I0827 15:37:41.037858 11148 net.cpp:369] relu2 -> conv2 (in-place)
+I0827 15:37:41.037858 11148 net.cpp:120] Setting up relu2
+I0827 15:37:41.037858 11148 net.cpp:127] Top shape: 10 32 16 16 (81920)
+I0827 15:37:41.037858 11148 layer_factory.hpp:74] Creating layer pool2
+I0827 15:37:41.037858 11148 net.cpp:90] Creating Layer pool2
+I0827 15:37:41.037858 11148 net.cpp:422] pool2 <- conv2
+I0827 15:37:41.037858 11148 net.cpp:380] pool2 -> pool2
+I0827 15:37:41.037858 11148 net.cpp:120] Setting up pool2
+I0827 15:37:41.037858 11148 net.cpp:127] Top shape: 10 32 8 8 (20480)
+I0827 15:37:41.037858 11148 layer_factory.hpp:74] Creating layer norm2
+I0827 15:37:41.037858 11148 net.cpp:90] Creating Layer norm2
+I0827 15:37:41.037858 11148 net.cpp:422] norm2 <- pool2
+I0827 15:37:41.037858 11148 net.cpp:380] norm2 -> norm2
+I0827 15:37:41.037858 11148 net.cpp:120] Setting up norm2
+I0827 15:37:41.037858 11148 net.cpp:127] Top shape: 10 32 8 8 (20480)
+I0827 15:37:41.037858 11148 net.cpp:194] norm2 does not need backward computation.
+I0827 15:37:41.037858 11148 net.cpp:194] pool2 does not need backward computation.
+I0827 15:37:41.037858 11148 net.cpp:194] relu2 does not need backward computation.
+I0827 15:37:41.037858 11148 net.cpp:194] conv2 does not need backward computation.
+I0827 15:37:41.037858 11148 net.cpp:194] norm1 does not need backward computation.
+I0827 15:37:41.037858 11148 net.cpp:194] relu1 does not need backward computation.
+I0827 15:37:41.037858 11148 net.cpp:194] pool1 does not need backward computation.
+I0827 15:37:41.037858 11148 net.cpp:194] conv1 does not need backward computation.
+I0827 15:37:41.037858 11148 net.cpp:235] This network produces output norm2
+I0827 15:37:41.037858 11148 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0827 15:37:41.037858 11148 net.cpp:247] Network initialization done.
+I0827 15:37:41.037858 11148 net.cpp:248] Memory required for data: 3112960

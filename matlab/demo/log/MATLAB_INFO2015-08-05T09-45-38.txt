@@ -1,0 +1,643 @@
+Open freopen.txt successfully!
+I0805 09:45:38.635571  7656 net.cpp:299] The NetState phase (0) differed from the phase (1) specified by a rule in layer cifar
+I0805 09:45:38.635571  7656 net.cpp:299] The NetState phase (0) differed from the phase (1) specified by a rule in layer accuracy
+I0805 09:45:38.635571  7656 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_quick"
+state {
+  phase: TRAIN
+}
+layer {
+  name: "cifar"
+  type: "Data"
+  top: "data"
+  top: "label"
+  include {
+    phase: TRAIN
+  }
+  transform_param {
+    mean_file: "D:/application/caffe-windows/examples/cifar10/mean_train.binaryproto"
+  }
+  data_param {
+    source: "D:/application/caffe-windows/examples/cifar10/cifar10_train_leveldb"
+    batch_size: 100
+    backend: LEVELDB
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.0001
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "pool1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "pool2"
+  top: "conv3"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 64
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu3"
+  type: "ReLU"
+  bottom: "conv3"
+  top: "conv3"
+}
+layer {
+  name: "pool3"
+  type: "Pooling"
+  bottom: "conv3"
+  top: "pool3"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ip1"
+  type: "InnerProduct"
+  bottom: "pool3"
+  top: "ip1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  inner_product_param {
+    num_output: 64
+    weight_filler {
+      type: "gaussian"
+      std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "ip2"
+  type: "InnerProduct"
+  bottom: "ip1"
+  top: "ip2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  inner_product_param {
+    num_output: 10
+    weight_filler {
+      type: "gaussian"
+      std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "loss"
+  type: "SoftmaxWithLoss"
+  bottom: "ip2"
+  bottom: "label"
+  top: "loss"
+}
+I0805 09:45:38.635571  7656 layer_factory.hpp:74] Creating layer cifar
+I0805 09:45:38.635571  7656 net.cpp:90] Creating Layer cifar
+I0805 09:45:38.635571  7656 net.cpp:380] cifar -> data
+I0805 09:45:38.635571  7656 net.cpp:380] cifar -> label
+I0805 09:45:38.635571  7656 net.cpp:120] Setting up cifar
+I0805 09:45:38.635571  7656 data_transformer.cpp:22] Loading mean file from: D:/application/caffe-windows/examples/cifar10/mean_train.binaryproto
+I0805 09:45:38.651196  7656 db.cpp:20] Opened leveldb D:/application/caffe-windows/examples/cifar10/cifar10_train_leveldb
+I0805 09:45:38.651196  7656 data_layer.cpp:52] output data size: 100,3,32,32
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: 100 3 32 32 (307200)
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: 100 (100)
+I0805 09:45:38.651196  7656 layer_factory.hpp:74] Creating layer conv1
+I0805 09:45:38.651196  7656 net.cpp:90] Creating Layer conv1
+I0805 09:45:38.651196  7656 net.cpp:422] conv1 <- data
+I0805 09:45:38.651196  7656 net.cpp:380] conv1 -> conv1
+I0805 09:45:38.651196  7656 net.cpp:120] Setting up conv1
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: 100 32 32 32 (3276800)
+I0805 09:45:38.651196  7656 layer_factory.hpp:74] Creating layer pool1
+I0805 09:45:38.651196  7656 net.cpp:90] Creating Layer pool1
+I0805 09:45:38.651196  7656 net.cpp:422] pool1 <- conv1
+I0805 09:45:38.651196  7656 net.cpp:380] pool1 -> pool1
+I0805 09:45:38.651196  7656 net.cpp:120] Setting up pool1
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: 100 32 16 16 (819200)
+I0805 09:45:38.651196  7656 layer_factory.hpp:74] Creating layer relu1
+I0805 09:45:38.651196  7656 net.cpp:90] Creating Layer relu1
+I0805 09:45:38.651196  7656 net.cpp:422] relu1 <- pool1
+I0805 09:45:38.651196  7656 net.cpp:369] relu1 -> pool1 (in-place)
+I0805 09:45:38.651196  7656 net.cpp:120] Setting up relu1
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: 100 32 16 16 (819200)
+I0805 09:45:38.651196  7656 layer_factory.hpp:74] Creating layer conv2
+I0805 09:45:38.651196  7656 net.cpp:90] Creating Layer conv2
+I0805 09:45:38.651196  7656 net.cpp:422] conv2 <- pool1
+I0805 09:45:38.651196  7656 net.cpp:380] conv2 -> conv2
+I0805 09:45:38.651196  7656 net.cpp:120] Setting up conv2
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: 100 32 16 16 (819200)
+I0805 09:45:38.651196  7656 layer_factory.hpp:74] Creating layer relu2
+I0805 09:45:38.651196  7656 net.cpp:90] Creating Layer relu2
+I0805 09:45:38.651196  7656 net.cpp:422] relu2 <- conv2
+I0805 09:45:38.651196  7656 net.cpp:369] relu2 -> conv2 (in-place)
+I0805 09:45:38.651196  7656 net.cpp:120] Setting up relu2
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: 100 32 16 16 (819200)
+I0805 09:45:38.651196  7656 layer_factory.hpp:74] Creating layer pool2
+I0805 09:45:38.651196  7656 net.cpp:90] Creating Layer pool2
+I0805 09:45:38.651196  7656 net.cpp:422] pool2 <- conv2
+I0805 09:45:38.651196  7656 net.cpp:380] pool2 -> pool2
+I0805 09:45:38.651196  7656 net.cpp:120] Setting up pool2
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: 100 32 8 8 (204800)
+I0805 09:45:38.651196  7656 layer_factory.hpp:74] Creating layer conv3
+I0805 09:45:38.651196  7656 net.cpp:90] Creating Layer conv3
+I0805 09:45:38.651196  7656 net.cpp:422] conv3 <- pool2
+I0805 09:45:38.651196  7656 net.cpp:380] conv3 -> conv3
+I0805 09:45:38.651196  7656 net.cpp:120] Setting up conv3
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: 100 64 8 8 (409600)
+I0805 09:45:38.651196  7656 layer_factory.hpp:74] Creating layer relu3
+I0805 09:45:38.651196  7656 net.cpp:90] Creating Layer relu3
+I0805 09:45:38.651196  7656 net.cpp:422] relu3 <- conv3
+I0805 09:45:38.651196  7656 net.cpp:369] relu3 -> conv3 (in-place)
+I0805 09:45:38.651196  7656 net.cpp:120] Setting up relu3
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: 100 64 8 8 (409600)
+I0805 09:45:38.651196  7656 layer_factory.hpp:74] Creating layer pool3
+I0805 09:45:38.651196  7656 net.cpp:90] Creating Layer pool3
+I0805 09:45:38.651196  7656 net.cpp:422] pool3 <- conv3
+I0805 09:45:38.651196  7656 net.cpp:380] pool3 -> pool3
+I0805 09:45:38.651196  7656 net.cpp:120] Setting up pool3
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: 100 64 4 4 (102400)
+I0805 09:45:38.651196  7656 layer_factory.hpp:74] Creating layer ip1
+I0805 09:45:38.651196  7656 net.cpp:90] Creating Layer ip1
+I0805 09:45:38.651196  7656 net.cpp:422] ip1 <- pool3
+I0805 09:45:38.651196  7656 net.cpp:380] ip1 -> ip1
+I0805 09:45:38.651196  7656 net.cpp:120] Setting up ip1
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: 100 64 (6400)
+I0805 09:45:38.651196  7656 layer_factory.hpp:74] Creating layer ip2
+I0805 09:45:38.651196  7656 net.cpp:90] Creating Layer ip2
+I0805 09:45:38.651196  7656 net.cpp:422] ip2 <- ip1
+I0805 09:45:38.651196  7656 net.cpp:380] ip2 -> ip2
+I0805 09:45:38.651196  7656 net.cpp:120] Setting up ip2
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: 100 10 (1000)
+I0805 09:45:38.651196  7656 layer_factory.hpp:74] Creating layer loss
+I0805 09:45:38.651196  7656 net.cpp:90] Creating Layer loss
+I0805 09:45:38.651196  7656 net.cpp:422] loss <- ip2
+I0805 09:45:38.651196  7656 net.cpp:422] loss <- label
+I0805 09:45:38.651196  7656 net.cpp:380] loss -> loss
+I0805 09:45:38.651196  7656 net.cpp:120] Setting up loss
+I0805 09:45:38.651196  7656 layer_factory.hpp:74] Creating layer loss
+I0805 09:45:38.651196  7656 net.cpp:127] Top shape: (1)
+I0805 09:45:38.651196  7656 net.cpp:129]     with loss weight 1
+I0805 09:45:38.651196  7656 net.cpp:192] loss needs backward computation.
+I0805 09:45:38.651196  7656 net.cpp:192] ip2 needs backward computation.
+I0805 09:45:38.651196  7656 net.cpp:192] ip1 needs backward computation.
+I0805 09:45:38.651196  7656 net.cpp:192] pool3 needs backward computation.
+I0805 09:45:38.651196  7656 net.cpp:192] relu3 needs backward computation.
+I0805 09:45:38.651196  7656 net.cpp:192] conv3 needs backward computation.
+I0805 09:45:38.651196  7656 net.cpp:192] pool2 needs backward computation.
+I0805 09:45:38.651196  7656 net.cpp:192] relu2 needs backward computation.
+I0805 09:45:38.651196  7656 net.cpp:192] conv2 needs backward computation.
+I0805 09:45:38.651196  7656 net.cpp:192] relu1 needs backward computation.
+I0805 09:45:38.651196  7656 net.cpp:192] pool1 needs backward computation.
+I0805 09:45:38.651196  7656 net.cpp:192] conv1 needs backward computation.
+I0805 09:45:38.651196  7656 net.cpp:194] cifar does not need backward computation.
+I0805 09:45:38.651196  7656 net.cpp:235] This network produces output loss
+I0805 09:45:38.651196  7656 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0805 09:45:38.651196  7656 net.cpp:247] Network initialization done.
+I0805 09:45:38.651196  7656 net.cpp:248] Memory required for data: 31978804
+I0805 09:47:23.493170  7656 net.cpp:299] The NetState phase (1) differed from the phase (0) specified by a rule in layer cifar
+I0805 09:47:23.493170  7656 net.cpp:42] Initializing net from parameters: 
+name: "CIFAR10_quick"
+state {
+  phase: TEST
+}
+layer {
+  name: "cifar"
+  type: "Data"
+  top: "data"
+  top: "label"
+  include {
+    phase: TEST
+  }
+  transform_param {
+    mean_file: "D:/application/caffe-windows/examples/cifar10/mean_test.binaryproto"
+  }
+  data_param {
+    source: "D:/application/caffe-windows/examples/cifar10/cifar10_test_leveldb"
+    batch_size: 100
+    backend: LEVELDB
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.0001
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "pool1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "pool2"
+  top: "conv3"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 64
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu3"
+  type: "ReLU"
+  bottom: "conv3"
+  top: "conv3"
+}
+layer {
+  name: "pool3"
+  type: "Pooling"
+  bottom: "conv3"
+  top: "pool3"
+  pooling_param {
+    pool: AVE
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ip1"
+  type: "InnerProduct"
+  bottom: "pool3"
+  top: "ip1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  inner_product_param {
+    num_output: 64
+    weight_filler {
+      type: "gaussian"
+      std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "ip2"
+  type: "InnerProduct"
+  bottom: "ip1"
+  top: "ip2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  inner_product_param {
+    num_output: 10
+    weight_filler {
+      type: "gaussian"
+      std: 0.1
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "accuracy"
+  type: "Accuracy"
+  bottom: "ip2"
+  bottom: "label"
+  top: "accuracy"
+  include {
+    phase: TEST
+  }
+}
+layer {
+  name: "loss"
+  type: "SoftmaxWithLoss"
+  bottom: "ip2"
+  bottom: "label"
+  top: "loss"
+}
+I0805 09:47:23.493170  7656 layer_factory.hpp:74] Creating layer cifar
+I0805 09:47:23.493170  7656 net.cpp:90] Creating Layer cifar
+I0805 09:47:23.493170  7656 net.cpp:380] cifar -> data
+I0805 09:47:23.493170  7656 net.cpp:380] cifar -> label
+I0805 09:47:23.493170  7656 net.cpp:120] Setting up cifar
+I0805 09:47:23.493170  7656 data_transformer.cpp:22] Loading mean file from: D:/application/caffe-windows/examples/cifar10/mean_test.binaryproto
+I0805 09:47:23.508797  7656 db.cpp:20] Opened leveldb D:/application/caffe-windows/examples/cifar10/cifar10_test_leveldb
+I0805 09:47:23.508797  7656 data_layer.cpp:52] output data size: 100,3,32,32
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 3 32 32 (307200)
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 (100)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer label_cifar_1_split
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer label_cifar_1_split
+I0805 09:47:23.508797  7656 net.cpp:422] label_cifar_1_split <- label
+I0805 09:47:23.508797  7656 net.cpp:380] label_cifar_1_split -> label_cifar_1_split_0
+I0805 09:47:23.508797  7656 net.cpp:380] label_cifar_1_split -> label_cifar_1_split_1
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up label_cifar_1_split
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 (100)
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 (100)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer conv1
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer conv1
+I0805 09:47:23.508797  7656 net.cpp:422] conv1 <- data
+I0805 09:47:23.508797  7656 net.cpp:380] conv1 -> conv1
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up conv1
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 32 32 32 (3276800)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer pool1
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer pool1
+I0805 09:47:23.508797  7656 net.cpp:422] pool1 <- conv1
+I0805 09:47:23.508797  7656 net.cpp:380] pool1 -> pool1
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up pool1
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 32 16 16 (819200)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer relu1
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer relu1
+I0805 09:47:23.508797  7656 net.cpp:422] relu1 <- pool1
+I0805 09:47:23.508797  7656 net.cpp:369] relu1 -> pool1 (in-place)
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up relu1
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 32 16 16 (819200)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer conv2
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer conv2
+I0805 09:47:23.508797  7656 net.cpp:422] conv2 <- pool1
+I0805 09:47:23.508797  7656 net.cpp:380] conv2 -> conv2
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up conv2
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 32 16 16 (819200)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer relu2
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer relu2
+I0805 09:47:23.508797  7656 net.cpp:422] relu2 <- conv2
+I0805 09:47:23.508797  7656 net.cpp:369] relu2 -> conv2 (in-place)
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up relu2
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 32 16 16 (819200)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer pool2
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer pool2
+I0805 09:47:23.508797  7656 net.cpp:422] pool2 <- conv2
+I0805 09:47:23.508797  7656 net.cpp:380] pool2 -> pool2
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up pool2
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 32 8 8 (204800)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer conv3
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer conv3
+I0805 09:47:23.508797  7656 net.cpp:422] conv3 <- pool2
+I0805 09:47:23.508797  7656 net.cpp:380] conv3 -> conv3
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up conv3
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 64 8 8 (409600)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer relu3
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer relu3
+I0805 09:47:23.508797  7656 net.cpp:422] relu3 <- conv3
+I0805 09:47:23.508797  7656 net.cpp:369] relu3 -> conv3 (in-place)
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up relu3
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 64 8 8 (409600)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer pool3
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer pool3
+I0805 09:47:23.508797  7656 net.cpp:422] pool3 <- conv3
+I0805 09:47:23.508797  7656 net.cpp:380] pool3 -> pool3
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up pool3
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 64 4 4 (102400)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer ip1
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer ip1
+I0805 09:47:23.508797  7656 net.cpp:422] ip1 <- pool3
+I0805 09:47:23.508797  7656 net.cpp:380] ip1 -> ip1
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up ip1
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 64 (6400)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer ip2
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer ip2
+I0805 09:47:23.508797  7656 net.cpp:422] ip2 <- ip1
+I0805 09:47:23.508797  7656 net.cpp:380] ip2 -> ip2
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up ip2
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 10 (1000)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer ip2_ip2_0_split
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer ip2_ip2_0_split
+I0805 09:47:23.508797  7656 net.cpp:422] ip2_ip2_0_split <- ip2
+I0805 09:47:23.508797  7656 net.cpp:380] ip2_ip2_0_split -> ip2_ip2_0_split_0
+I0805 09:47:23.508797  7656 net.cpp:380] ip2_ip2_0_split -> ip2_ip2_0_split_1
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up ip2_ip2_0_split
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 10 (1000)
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: 100 10 (1000)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer accuracy
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer accuracy
+I0805 09:47:23.508797  7656 net.cpp:422] accuracy <- ip2_ip2_0_split_0
+I0805 09:47:23.508797  7656 net.cpp:422] accuracy <- label_cifar_1_split_0
+I0805 09:47:23.508797  7656 net.cpp:380] accuracy -> accuracy
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up accuracy
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: (1)
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer loss
+I0805 09:47:23.508797  7656 net.cpp:90] Creating Layer loss
+I0805 09:47:23.508797  7656 net.cpp:422] loss <- ip2_ip2_0_split_1
+I0805 09:47:23.508797  7656 net.cpp:422] loss <- label_cifar_1_split_1
+I0805 09:47:23.508797  7656 net.cpp:380] loss -> loss
+I0805 09:47:23.508797  7656 net.cpp:120] Setting up loss
+I0805 09:47:23.508797  7656 layer_factory.hpp:74] Creating layer loss
+I0805 09:47:23.508797  7656 net.cpp:127] Top shape: (1)
+I0805 09:47:23.508797  7656 net.cpp:129]     with loss weight 1
+I0805 09:47:23.508797  7656 net.cpp:192] loss needs backward computation.
+I0805 09:47:23.508797  7656 net.cpp:194] accuracy does not need backward computation.
+I0805 09:47:23.508797  7656 net.cpp:192] ip2_ip2_0_split needs backward computation.
+I0805 09:47:23.508797  7656 net.cpp:192] ip2 needs backward computation.
+I0805 09:47:23.508797  7656 net.cpp:192] ip1 needs backward computation.
+I0805 09:47:23.508797  7656 net.cpp:192] pool3 needs backward computation.
+I0805 09:47:23.508797  7656 net.cpp:192] relu3 needs backward computation.
+I0805 09:47:23.508797  7656 net.cpp:192] conv3 needs backward computation.
+I0805 09:47:23.508797  7656 net.cpp:192] pool2 needs backward computation.
+I0805 09:47:23.508797  7656 net.cpp:192] relu2 needs backward computation.
+I0805 09:47:23.508797  7656 net.cpp:192] conv2 needs backward computation.
+I0805 09:47:23.508797  7656 net.cpp:192] relu1 needs backward computation.
+I0805 09:47:23.508797  7656 net.cpp:192] pool1 needs backward computation.
+I0805 09:47:23.508797  7656 net.cpp:192] conv1 needs backward computation.
+I0805 09:47:23.508797  7656 net.cpp:194] label_cifar_1_split does not need backward computation.
+I0805 09:47:23.508797  7656 net.cpp:194] cifar does not need backward computation.
+I0805 09:47:23.508797  7656 net.cpp:235] This network produces output accuracy
+I0805 09:47:23.508797  7656 net.cpp:235] This network produces output loss
+I0805 09:47:23.508797  7656 net.cpp:494] Collecting Learning Rate and Weight Decay.
+I0805 09:47:23.508797  7656 net.cpp:247] Network initialization done.
+I0805 09:47:23.508797  7656 net.cpp:248] Memory required for data: 31987608
