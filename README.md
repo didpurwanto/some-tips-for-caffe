@@ -19,6 +19,6 @@ This file will tell you how to use your own dataset to train with Caffe
    usage of compute_image_mean.exe
    cmd compute_image_mean --backend=leveldb data/trainldb mean.binaryproto
    
-5 .some warnings
+5. some warnings
    the train.txt and val.txt cannot contains empty lines in it! The convert_imageset.exe may cannot work!!!
     

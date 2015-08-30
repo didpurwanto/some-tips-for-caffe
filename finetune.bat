@@ -1,0 +1,1 @@
+.\bin\caffe.exe train --solver=examples/binarycodes/KevinNet_CIFAR10_48_solver.prototxt -weights=models/deploy.caffemodel
