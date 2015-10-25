@@ -1,4 +1,4 @@
-This file will tell you how to use your own dataset to train with Caffe
+# This file will tell you how to use your own dataset to train with Caffe
 
 1. create train and val folder, which contains train and test images
     for example:
